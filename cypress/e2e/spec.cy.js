@@ -4,9 +4,12 @@ describe('Login', () => {
   it('logs in', () => {
     cy.visit('public/index.html')
     cy.get('.login-container').should('be.visible')
-    cy.get('#username').type('cypress')
-    cy.get('#password').type('rocks', { log: false })
+    cy.get('#username').type(Cypress.expose('username'))
+    cy.env(['password']).then(({ password }) => {
+      cy.get('#password').type(password, { log: false })
+    })
     cy.contains('button', 'Login').click()
+    cy.get('.login-container').should('not.exist')
     cy.get('.authenticated-message').should(
       'have.text',
       'Authenticated',
@@ -16,7 +19,7 @@ describe('Login', () => {
   it('fails to log in', () => {
     cy.visit('public/index.html')
     cy.get('.login-container').should('be.visible')
-    cy.get('#username').type('cypress')
+    cy.get('#username').type(Cypress.expose('username'))
     cy.get('#password').type('wrong-password', { log: false })
     cy.contains('button', 'Login').click()
     cy.get('.login-error').should(

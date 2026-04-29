@@ -3,6 +3,12 @@ const { defineConfig } = require('cypress')
 module.exports = defineConfig({
   allowCypressEnv: false,
   e2e: {
+    expose: {
+      username: 'cypress',
+    },
+    env: {
+      password: 'rocks',
+    },
     // baseUrl, etc
     supportFile: false,
     fixturesFolder: false,
