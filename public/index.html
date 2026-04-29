@@ -72,6 +72,23 @@
         flex-direction: column;
         gap: 0.2rem;
       }
+      .authenticated-message {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+        font-size: 2rem;
+        font-weight: bold;
+      }
+      .login-error {
+        color: #d32f2f;
+        background: #ffeaea;
+        border-radius: 0.4rem;
+        padding: 0.5rem 1rem;
+        margin-top: -0.5rem;
+        text-align: center;
+        font-size: 1rem;
+      }
     </style>
   </head>
   <body>
@@ -119,25 +136,14 @@
           // Authenticated: replace form with Authenticated message
           form.remove()
           const authDiv = document.createElement('div')
-          authDiv.style.display = 'flex'
-          authDiv.style.justifyContent = 'center'
-          authDiv.style.alignItems = 'center'
-          authDiv.style.height = '200px'
-          authDiv.style.fontSize = '2rem'
-          authDiv.style.fontWeight = 'bold'
+          authDiv.className = 'authenticated-message'
           authDiv.textContent = 'Authenticated'
           document.body.appendChild(authDiv)
         } else {
           // Show error, clear inputs
           errorElem = document.createElement('div')
           errorElem.textContent = 'wrong username or password'
-          errorElem.style.color = '#d32f2f'
-          errorElem.style.background = '#ffeaea'
-          errorElem.style.borderRadius = '0.4rem'
-          errorElem.style.padding = '0.5rem 1rem'
-          errorElem.style.marginTop = '-0.5rem'
-          errorElem.style.textAlign = 'center'
-          errorElem.style.fontSize = '1rem'
+          errorElem.className = 'login-error'
           form.insertBefore(errorElem, form.firstChild.nextSibling)
           usernameInput.value = ''
           passwordInput.value = ''
