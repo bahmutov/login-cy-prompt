@@ -98,5 +98,52 @@
       </div>
       <button type="submit">Login</button>
     </form>
+    <script>
+      const form = document.querySelector('.login-container')
+      const usernameInput = document.getElementById('username')
+      const passwordInput = document.getElementById('password')
+      let errorElem = null
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault()
+        const username = usernameInput.value.trim()
+        const password = passwordInput.value
+
+        // Remove previous error if any
+        if (errorElem) {
+          errorElem.remove()
+          errorElem = null
+        }
+
+        if (username === 'cypress' && password === 'rocks') {
+          // Authenticated: replace form with Authenticated message
+          form.remove()
+          const authDiv = document.createElement('div')
+          authDiv.style.display = 'flex'
+          authDiv.style.justifyContent = 'center'
+          authDiv.style.alignItems = 'center'
+          authDiv.style.height = '200px'
+          authDiv.style.fontSize = '2rem'
+          authDiv.style.fontWeight = 'bold'
+          authDiv.textContent = 'Authenticated'
+          document.body.appendChild(authDiv)
+        } else {
+          // Show error, clear inputs
+          errorElem = document.createElement('div')
+          errorElem.textContent = 'wrong username or password'
+          errorElem.style.color = '#d32f2f'
+          errorElem.style.background = '#ffeaea'
+          errorElem.style.borderRadius = '0.4rem'
+          errorElem.style.padding = '0.5rem 1rem'
+          errorElem.style.marginTop = '-0.5rem'
+          errorElem.style.textAlign = 'center'
+          errorElem.style.fontSize = '1rem'
+          form.insertBefore(errorElem, form.firstChild.nextSibling)
+          usernameInput.value = ''
+          passwordInput.value = ''
+          usernameInput.focus()
+        }
+      })
+    </script>
   </body>
 </html>
